@@ -1,0 +1,16 @@
+def no_dupes?(arr)
+    dupe_detector = Hash.new(0)
+    no_dupes = []
+
+    arr.each { |ele| dupe_detector[ele] += 1 }
+
+    dupe_detector.each() { |k,v| no_dupes << k if v == 1 }
+
+    no_dupes
+
+end
+
+# Examples
+no_dupes?([1, 1, 2, 1, 3, 2, 4])         # => [3, 4]
+no_dupes?(['x', 'x', 'y', 'z', 'z'])     # => ['y']
+no_dupes?([true, true, true])            # => []
