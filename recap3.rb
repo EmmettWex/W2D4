@@ -41,7 +41,7 @@ def longest_streak(str)
     return str if str.length < 2
 
     longest_streak = ""
-    current_streak = ""
+    current_streak = str[0]
 
     (0...str.length-1).each do |idx|
         if str[idx] != str[idx+1]
@@ -55,9 +55,67 @@ def longest_streak(str)
     longest_streak
 end
 
+# # Examples
+# p longest_streak('a')           # => 'a'
+# p longest_streak('accccbbb')    # => 'cccc'
+# p longest_streak('aaaxyyyyyzz') # => 'yyyyy
+# p longest_streak('aaabbb')      # => 'bbb'
+# p longest_streak('abc')         # => 'c'
+
+def bi_prime?(num)
+    prime_factors = []
+
+    (2..num/2).each { |n| prime_factors << n if is_prime?(n) }
+
+    prime_factors.each do |i|
+        prime_factors.each do |j|
+            return true if i * j == num
+        end
+    end
+
+    false
+end
+
+def is_prime?(num)
+    return false if num < 2
+
+    (2..num/2).each { |factor| return false if num % factor == 0 }
+
+    true
+end
+
+# # Examples
+# p bi_prime?(14)   # => true
+# p bi_prime?(22)   # => true
+# p bi_prime?(25)   # => true
+# p bi_prime?(94)   # => true
+# p bi_prime?(24)   # => false
+# p bi_prime?(64)   # => false
+
+def vigenere_cipher(message, keys)
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    secret_message = ""
+    idx = 0
+
+    message.each_char.with_index do |char, i|
+        old_index = alphabet.index(char)
+        new_char = alphabet[(old_index + keys[idx]) % 26]
+        secret_message += new_char
+        
+        
+        if idx < keys.length-1
+            idx += 1
+        else
+            idx = 0
+        end
+    end
+    secret_message
+
+end
+
 # Examples
-p longest_streak('a')           # => 'a'
-p longest_streak('accccbbb')    # => 'cccc'
-p longest_streak('aaaxyyyyyzz') # => 'yyyyy
-p longest_streak('aaabbb')      # => 'bbb'
-p longest_streak('abc')         # => 'c'
+p vigenere_cipher("toerrishuman", [1])        # => "upfssjtivnbo"
+p vigenere_cipher("toerrishuman", [1, 2])     # => "uqftsktjvobp"
+p vigenere_cipher("toerrishuman", [1, 2, 3])  # => "uqhstltjxncq"
+p vigenere_cipher("zebra", [3, 0])            # => "ceerd"
+p vigenere_cipher("yawn", [5, 1])             # => "dbbo"
