@@ -44,7 +44,7 @@ describe "Array" do
                 expect([4, 12, 2, 8, 1, 14, 9, 25, 24, 81].bubble_sort).to eq([1, 2, 4, 8, 9, 12, 14, 24, 25, 81])
             end 
         end
-
+#{ |a, b| a.to_s <=> b.to_s }
         context "when a proc is given as an arg" do
             it "should sort the array according to proc" do
                 actual = [4, 12, 2, 8, 1, 14, 9, 25, 24, 81].bubble_sort { |a, b| a.to_s <=> b.to_s } # this block will sort the numbers "alphabetically" by characters
