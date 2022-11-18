@@ -114,8 +114,36 @@ def vigenere_cipher(message, keys)
 end
 
 # Examples
-p vigenere_cipher("toerrishuman", [1])        # => "upfssjtivnbo"
-p vigenere_cipher("toerrishuman", [1, 2])     # => "uqftsktjvobp"
-p vigenere_cipher("toerrishuman", [1, 2, 3])  # => "uqhstltjxncq"
-p vigenere_cipher("zebra", [3, 0])            # => "ceerd"
-p vigenere_cipher("yawn", [5, 1])             # => "dbbo"
+# p vigenere_cipher("toerrishuman", [1])        # => "upfssjtivnbo"
+# p vigenere_cipher("toerrishuman", [1, 2])     # => "uqftsktjvobp"
+# p vigenere_cipher("toerrishuman", [1, 2, 3])  # => "uqhstltjxncq"
+# p vigenere_cipher("zebra", [3, 0])            # => "ceerd"
+# p vigenere_cipher("yawn", [5, 1])             # => "dbbo"
+
+def vowel_rotate(str)
+    vowels = "aeiou"
+    chars = []
+
+    str.each_char.with_index { |char, idx| chars << char if vowels.include?(char) }
+
+    last_vowel = chars.pop
+    chars.unshift(last_vowel)
+
+    index = 0
+    
+    str.each_char.with_index do |char, idx|
+        if vowels.include?(char)
+            str[idx] = chars[index]
+            index += 1
+        end
+    end
+
+    str
+end
+
+# Examples
+# p vowel_rotate('computer')      # => "cempotur"
+# p vowel_rotate('oranges')       # => "erongas"
+# p vowel_rotate('headphones')    # => "heedphanos"
+# p vowel_rotate('bootcamp')      # => "baotcomp"
+# p vowel_rotate('awesome')       # => "ewasemo"
